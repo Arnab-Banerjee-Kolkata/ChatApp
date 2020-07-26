@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="menuItemWidth">53dp</dimen>
+    <dimen name="menuItemHeight">65dp</dimen>
+    <dimen name="emojiRelMarginTop">280dp</dimen>
+</resources>

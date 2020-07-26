@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@android:color/white"
+    android:id="@+id/background">
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="@color/phoneColor" >-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="320dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:background="@android:color/white" />-->
+
+    <!--</RelativeLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/typingRel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/baseBar"
+        android:background="@android:color/transparent">
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/firstType"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            app:indicatorName="BallPulseSyncIndicator"
+            app:indicatorColor="@color/phoneColor"
+            android:layout_marginLeft="300dp"/>
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/secondType"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            app:indicatorName="BallPulseSyncIndicator"
+            app:indicatorColor="@color/phoneColor"
+            android:layout_marginLeft="50dp"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="90dp" />
+
+    <RelativeLayout
+        android:id="@+id/baseBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:padding="3dp"
+        android:background="@color/baseBarColor"
+        android:elevation="2dp">
+
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+
+        <EditText
+            android:id="@+id/msg"
+            android:layout_width="291dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@color/baseBarColor"
+            android:hint="Type your message here"
+            android:nextFocusUp="@id/msg"
+            android:layout_toStartOf="@+id/attachmentBtn"
+            android:layout_toEndOf="@+id/menuBtn"
+            android:nextFocusLeft="@id/msg"/>
+
+        <ImageButton
+            android:id="@+id/sendBtn"
+            android:layout_width="62dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:elevation="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/send_btn" />
+
+        <ImageButton
+            android:id="@+id/attachmentBtn"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-4dp"
+            android:layout_toStartOf="@+id/sendBtn"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/attachment" />
+
+        <ImageButton
+            android:id="@+id/menuBtn"
+            android:layout_width="32dp"
+            android:layout_height="46dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/plus" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/emojiRel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/emojiRelMarginTop"
+        android:elevation="3dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#c18ef4"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/emojiPane"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menuBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menuItemHeight"
+        android:layout_above="@+id/emojiRel"
+        android:layout_marginBottom="-280dp"
+        android:background="@android:color/transparent">
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                
+                <ImageButton
+                    android:id="@+id/item1"
+                    android:layout_width="@dimen/menuItemWidth"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/right_thumbs_up"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle"/>
+                <ImageButton
+                    android:id="@+id/item2"
+                    android:layout_width="@dimen/menuItemWidth"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/font_logo"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/circle"/>
+                <ImageButton
+                    android:id="@+id/item3"
+                    android:layout_width="@dimen/menuItemWidth"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/placeholder"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/circle"/>
+                <ImageButton
+                    android:id="@+id/item4"
+                    android:layout_width="@dimen/menuItemWidth"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/placeholder"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/circle"/>
+                <ImageButton
+                    android:id="@+id/item5"
+                    android:layout_width="@dimen/menuItemWidth"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/placeholder"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/circle"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
