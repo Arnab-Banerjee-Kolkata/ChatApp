@@ -6,11 +6,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.MenuItem
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,13 +20,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chatapp.EmojiAdapter.OnEmojiListener
 import com.example.chatapp.MainActivity
+import com.example.chatapp.MainActivity.Companion.setting
 import com.example.chatapp.MessageAdapter.OnItemListener
 import com.wang.avi.AVLoadingIndicatorView
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeListener, OnItemListener, OnEmojiListener {
+class MainActivity : AppCompatActivity(),
+        View.OnClickListener,
+        OnFocusChangeListener,
+        OnItemListener,
+        OnEmojiListener,
+        PopupMenu.OnMenuItemClickListener {
     private var recyclerMsg: RecyclerView? = null
     private var emojiPane: RecyclerView? = null
     private var msgAdapter: MessageAdapter? = null
@@ -41,19 +49,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
     var SCREEN_WIDTH = 0f
     var SCREEN_HEIGHT = 0f
     var isEmojiPaneVisible = false
+
     var messages: ArrayList<String>? = null
     var sender: ArrayList<Int>? = null
     var sentTime: ArrayList<String>? = null
     var sentDate: ArrayList<String>? = null
     var showdate: ArrayList<String>? = null
     var datePosition: ArrayList<Int>? = null
+    lateinit var msgFont: ArrayList<Int>
     var menuBarParams: RelativeLayout.LayoutParams? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         d = this.resources.displayMetrics.density
         SCREEN_WIDTH = windowManager.defaultDisplay.width.toFloat()
         SCREEN_HEIGHT = windowManager.defaultDisplay.height.toFloat()
+
         messages = ArrayList()
         sender = ArrayList()
         sentTime = ArrayList()
@@ -61,6 +74,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
         showdate = ArrayList()
         datePosition = ArrayList()
         emojiName = ArrayList()
+        msgFont= ArrayList<Int>()
+
         msg = findViewById<View>(R.id.msg) as EditText
         sendBtn = findViewById<View>(R.id.sendBtn) as ImageButton
         recyclerMsg = findViewById<View>(R.id.recyclerMsg) as RecyclerView
@@ -77,19 +92,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
         item4 = findViewById<View>(R.id.item4) as ImageButton
         item5 = findViewById<View>(R.id.item5) as ImageButton
         emojiRel = findViewById<View>(R.id.emojiRel) as RelativeLayout
+        setting=findViewById(R.id.setting) as ImageButton
+
         initImages(this)
+
         emojiName = EmojiInitializer.initialize()
         firstType!!.visibility = View.GONE
         secondType!!.visibility = View.GONE
         menuBar!!.visibility = View.GONE
         emojiRel!!.visibility = View.GONE
-        msgAdapter = MessageAdapter(messages!!, sender!!, sentTime!!, showdate!!)
+
+        msgAdapter = MessageAdapter(messages!!, sender!!, sentTime!!, showdate!!, msgFont)
         msgAdapter!!.setListener(this)
         msgLayoutManager = LinearLayoutManager(this)
         recyclerMsg!!.layoutManager = msgLayoutManager
         recyclerMsg!!.setHasFixedSize(true)
         recyclerMsg!!.adapter = msgAdapter
         (msgLayoutManager as LinearLayoutManager).scrollToPosition(messages!!.size - 1)
+
         emojiAdapter = emojiName?.let { EmojiAdapter(it) }
         emojiAdapter!!.setEmojiListener(this)
         emojiLayoutManager = GridLayoutManager(this, 5)
@@ -97,6 +117,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
         emojiPane!!.setHasFixedSize(true)
         emojiPane!!.adapter = emojiAdapter
         (emojiLayoutManager as GridLayoutManager).scrollToPosition(0)
+
         sendBtn!!.setOnClickListener(this)
         msg!!.onFocusChangeListener = this
         attachmentBtn!!.setOnClickListener(this)
@@ -108,10 +129,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
         item3!!.setOnClickListener(this)
         item4!!.setOnClickListener(this)
         item5!!.setOnClickListener(this)
+        setting.setOnClickListener(this)
+
         menuBarParams = menuBar!!.layoutParams as RelativeLayout.LayoutParams
         menuBarParams!!.addRule(RelativeLayout.ABOVE, R.id.baseBar)
         menuBarParams!!.setMargins(0, 0, 0, 0)
         menuBar!!.layoutParams = menuBarParams
+
+
         KeyboardVisibilityEvent.setEventListener(
                 this@MainActivity
         ) { isOpen ->
@@ -134,6 +159,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
                 messages!!.add(message)
                 sender!!.add(i)
                 sentTime!!.add(time)
+                msgFont.add(defaultFont)
                 adjustDates()
                 msgLayoutManager!!.scrollToPosition(messages!!.size - 1)
                 msg!!.setText("")
@@ -188,6 +214,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
         } else if (v == item3) {
         } else if (v == item4) {
         } else if (v == item5) {
+        }
+        else if(v== setting)
+        {
+            PopupMenu(this,v).apply {
+                setOnMenuItemClickListener(this@MainActivity)
+                inflate(R.menu.options_menu)
+                show()
+            }
         }
     }
 
@@ -246,6 +280,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
                 recyclerMsg!!.requestFocus()
                 i = if (i == 0) 1 else 0
                 msg!!.requestFocus()
+            }
+            else if(requestCode== FONT_REQUEST)
+            {
+                var intent:Intent=data as Intent
+                defaultFont=intent.getIntExtra("selectedFont",1)
             }
         }
     }
@@ -335,6 +374,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
         var item3: ImageButton? = null
         var item4: ImageButton? = null
         var item5: ImageButton? = null
+        lateinit var setting: ImageButton
         private var currentX = 0
         private var currentY = 0
         private var startX = 0
@@ -342,6 +382,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
         var i = 0
         var visible = 0
         var emojiName: ArrayList<Int>? = null
+        val FONT_REQUEST = 42
+        var defaultFont=R.font.roboto
+
+
         fun setCurrentX(x: Int) {
             currentX = x
         }
@@ -385,6 +429,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFocusChangeLis
                 view = View(activity)
             }
             imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item!!.itemId)
+        {
+            R.id.changeFont ->
+            {
+                if (visible == 1) {
+                    visible = 0
+                    menuBar?.visibility = View.GONE
+                    loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
+                }
+                val intent: Intent = Intent(applicationContext, SelectFont::class.java)
+                startActivityForResult(intent, FONT_REQUEST)
+                true
+            }
+            else -> false
         }
     }
 }

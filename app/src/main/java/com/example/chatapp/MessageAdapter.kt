@@ -2,6 +2,7 @@ package com.example.chatapp
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,34 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
 import java.util.*
 
-class MessageAdapter(messages: ArrayList<String>, sender: ArrayList<Int>, sentTime: ArrayList<String>, showdate: ArrayList<String>) : RecyclerView.Adapter<ViewHolder>() {
+class MessageAdapter(messages: ArrayList<String>,
+                     sender: ArrayList<Int>,
+                     sentTime: ArrayList<String>,
+                     showdate: ArrayList<String>,
+                     msgFont: ArrayList<Int>
+) : RecyclerView.Adapter<ViewHolder>() {
     var messages = ArrayList<String>()
     var sender = ArrayList<Int>()
     var sentTime = ArrayList<String>()
     var showdate = ArrayList<String>()
-    var myContext: Context? = null
+    var msgFont=ArrayList<Int>()
+    lateinit var myContext: Context
     private var mClickListener: OnItemListener? = null
+
+    init {
+        this.messages = messages
+        this.sender = sender
+        this.sentTime = sentTime
+        this.showdate = showdate
+        this.msgFont=msgFont
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         myContext = parent.context
         val viewHolder: ViewHolder
@@ -191,6 +208,8 @@ class MessageAdapter(messages: ArrayList<String>, sender: ArrayList<Int>, sentTi
     private fun configureRecyclerViewHolder1(vh1: RecyclerViewHolder1, position: Int) {
         vh1.textView.text = messages[position] + " \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
         vh1.textView.setTextColor(Color.BLACK)
+        var typeFace: Typeface? = ResourcesCompat.getFont(myContext, msgFont[position])
+        vh1?.textView.typeface = typeFace
         vh1.time.text = sentTime[position]
         vh1.dateRel.visibility = View.GONE
         if (showdate[position] != "") {
@@ -202,6 +221,8 @@ class MessageAdapter(messages: ArrayList<String>, sender: ArrayList<Int>, sentTi
     private fun configureRecyclerViewHolder2(vh2: RecyclerViewHolder2, position: Int) {
         vh2.textView.text = messages[position] + " \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
         vh2.textView.setTextColor(Color.BLACK)
+        var typeFace: Typeface? = ResourcesCompat.getFont(myContext, msgFont[position])
+        vh2?.textView.typeface=typeFace
         vh2.time.text = sentTime[position]
         vh2.dateRel.visibility = View.GONE
         if (showdate[position] != "") {
@@ -212,6 +233,8 @@ class MessageAdapter(messages: ArrayList<String>, sender: ArrayList<Int>, sentTi
 
     private fun configureRecyclerImgViewHolder1(im1: RecyclerImgViewHolder1, position: Int) {
         im1.textView.text = " \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
+        var typeFace: Typeface? = ResourcesCompat.getFont(myContext, msgFont[position])
+        im1?.textView.typeface=typeFace
         im1.time.text = sentTime[position]
         GlideApp
                 .with(myContext!!)
@@ -226,6 +249,8 @@ class MessageAdapter(messages: ArrayList<String>, sender: ArrayList<Int>, sentTi
 
     private fun configureRecyclerImgViewHolder2(im2: RecyclerImgViewHolder2, position: Int) {
         im2.textView.text = " \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
+        var typeFace: Typeface? = ResourcesCompat.getFont(myContext, msgFont[position])
+        im2?.textView.typeface=typeFace
         im2.time.text = sentTime[position]
         GlideApp
                 .with(myContext!!)

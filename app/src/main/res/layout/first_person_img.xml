@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
+            android:textColor="@android:color/black"
             android:text="   Yesterday   "
             android:layout_margin="5dp"
             android:layout_centerHorizontal="true"/>
@@ -86,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
                 android:text="Hello user this is me from universe."
                 android:textSize="15sp"
                 android:layout_gravity="bottom"/>
@@ -94,6 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
+                android:textColor="@android:color/black"
                 android:text="10:30 AM"
                 android:textSize="8sp" />
 
