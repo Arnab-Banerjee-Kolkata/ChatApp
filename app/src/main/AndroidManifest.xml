@@ -23,8 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectFont"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SelectFont"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectStyle"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectQuote"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

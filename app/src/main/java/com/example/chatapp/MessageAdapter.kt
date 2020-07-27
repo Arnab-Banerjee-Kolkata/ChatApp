@@ -14,28 +14,62 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
-import java.util.*
 
-class MessageAdapter(messages: ArrayList<String>,
-                     sender: ArrayList<Int>,
-                     sentTime: ArrayList<String>,
-                     showdate: ArrayList<String>,
-                     msgFont: ArrayList<Int>
+class MessageAdapter(messages: ArrayList<String>?,
+                     sender: ArrayList<Int>?,
+                     sentTime: ArrayList<String>?,
+                     showdate: ArrayList<String>?,
+                     msgFont: ArrayList<Int>?,
+                     quotes: ArrayList<String>?,
+                     font: ArrayList<Int>?,
+                     bg: ArrayList<Int>?,
+                     fontColor: ArrayList<Int>?,
+                     rotationAngle: ArrayList<Float>?
 ) : RecyclerView.Adapter<ViewHolder>() {
     var messages = ArrayList<String>()
     var sender = ArrayList<Int>()
     var sentTime = ArrayList<String>()
     var showdate = ArrayList<String>()
-    var msgFont=ArrayList<Int>()
+    var msgFont = ArrayList<Int>()
+    var quotes = ArrayList<String>()
+    var font = ArrayList<Int>()
+    var bg = ArrayList<Int>()
+    var fontColor = ArrayList<Int>()
+    var rotationAngle = ArrayList<Float>()
     lateinit var myContext: Context
     private var mClickListener: OnItemListener? = null
 
     init {
-        this.messages = messages
-        this.sender = sender
-        this.sentTime = sentTime
-        this.showdate = showdate
-        this.msgFont=msgFont
+        if (messages != null) {
+            this.messages = messages
+        }
+        if (sender != null) {
+            this.sender = sender
+        }
+        if (sentTime != null) {
+            this.sentTime = sentTime
+        }
+        if (showdate != null) {
+            this.showdate = showdate
+        }
+        if (msgFont != null) {
+            this.msgFont = msgFont
+        }
+        if (quotes != null) {
+            this.quotes = quotes
+        }
+        if (font != null) {
+            this.font = font
+        }
+        if (bg != null) {
+            this.bg = bg
+        }
+        if (fontColor != null) {
+            this.fontColor = fontColor
+        }
+        if (rotationAngle != null) {
+            this.rotationAngle = rotationAngle
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -66,6 +100,14 @@ class MessageAdapter(messages: ArrayList<String>,
             7 -> {
                 val v8 = inflater.inflate(R.layout.second_person_like, parent, false)
                 RecyclerLikeViewHolder2(v8)
+            }
+            8 -> {
+                val v9 = inflater.inflate(R.layout.frst_person_quote, parent, false)
+                QuoteViewHolder1(v9)
+            }
+            9 -> {
+                val v10 = inflater.inflate(R.layout.second_person_quote, parent, false)
+                QuoteViewHolder2(v10)
             }
             else -> {
                 val v = inflater.inflate(R.layout.first_person_msg, parent, false)
@@ -100,6 +142,14 @@ class MessageAdapter(messages: ArrayList<String>,
             7 -> {
                 val lv2 = holder as RecyclerLikeViewHolder2
                 configureRecyclerLikeViewHolder2(lv2, position)
+            }
+            8 -> {
+                val qt1 = holder as QuoteViewHolder1
+                configureQuoteViewHolder1(qt1, position)
+            }
+            9 -> {
+                val qt2 = holder as QuoteViewHolder2
+                configureQuoteViewHolder2(qt2, position)
             }
         }
         holder.itemView.setOnClickListener {
@@ -201,6 +251,42 @@ class MessageAdapter(messages: ArrayList<String>,
         }
     }
 
+    class QuoteViewHolder1(var view: View) : ViewHolder(view) {
+        var quoteText: TextView
+
+        //var time: TextView
+        //var dateText: TextView
+        //var dateRel: RelativeLayout
+        var quoteRel: RelativeLayout
+
+        init {
+//            textView = view.findViewById<View>(R.id.text) as TextView
+//            time = view.findViewById<View>(R.id.time) as TextView
+//            dateRel = view.findViewById<View>(R.id.dateRel) as RelativeLayout
+//            dateText = view.findViewById<View>(R.id.dateText) as TextView
+            quoteText = itemView.findViewById(R.id.quoteText) as TextView
+            quoteRel = itemView.findViewById(R.id.quoteRel) as RelativeLayout
+        }
+    }
+
+    class QuoteViewHolder2(var view: View) : ViewHolder(view) {
+        var quoteText: TextView
+
+        //var time: TextView
+        //var dateText: TextView
+        //var dateRel: RelativeLayout
+        var quoteRel: RelativeLayout
+
+        init {
+//            textView = view.findViewById<View>(R.id.text) as TextView
+//            time = view.findViewById<View>(R.id.time) as TextView
+//            dateRel = view.findViewById<View>(R.id.dateRel) as RelativeLayout
+//            dateText = view.findViewById<View>(R.id.dateText) as TextView
+            quoteText = itemView.findViewById(R.id.quoteText) as TextView
+            quoteRel = itemView.findViewById(R.id.quoteRel) as RelativeLayout
+        }
+    }
+
     override fun getItemViewType(position: Int): Int {
         return sender[position]
     }
@@ -222,7 +308,7 @@ class MessageAdapter(messages: ArrayList<String>,
         vh2.textView.text = messages[position] + " \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
         vh2.textView.setTextColor(Color.BLACK)
         var typeFace: Typeface? = ResourcesCompat.getFont(myContext, msgFont[position])
-        vh2?.textView.typeface=typeFace
+        vh2?.textView.typeface = typeFace
         vh2.time.text = sentTime[position]
         vh2.dateRel.visibility = View.GONE
         if (showdate[position] != "") {
@@ -234,7 +320,7 @@ class MessageAdapter(messages: ArrayList<String>,
     private fun configureRecyclerImgViewHolder1(im1: RecyclerImgViewHolder1, position: Int) {
         im1.textView.text = " \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
         var typeFace: Typeface? = ResourcesCompat.getFont(myContext, msgFont[position])
-        im1?.textView.typeface=typeFace
+        im1?.textView.typeface = typeFace
         im1.time.text = sentTime[position]
         GlideApp
                 .with(myContext!!)
@@ -250,7 +336,7 @@ class MessageAdapter(messages: ArrayList<String>,
     private fun configureRecyclerImgViewHolder2(im2: RecyclerImgViewHolder2, position: Int) {
         im2.textView.text = " \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
         var typeFace: Typeface? = ResourcesCompat.getFont(myContext, msgFont[position])
-        im2?.textView.typeface=typeFace
+        im2?.textView.typeface = typeFace
         im2.time.text = sentTime[position]
         GlideApp
                 .with(myContext!!)
@@ -289,6 +375,32 @@ class MessageAdapter(messages: ArrayList<String>,
                 .into(lv2.thumb)
     }
 
+    private fun configureQuoteViewHolder1(qt1: QuoteViewHolder1, position: Int) {
+        qt1?.quoteText?.text = quotes.get(position).toString()
+        var typeFace: Typeface? = ResourcesCompat.getFont(myContext, font.get(position))
+        qt1?.quoteText.setTypeface(typeFace, Typeface.ITALIC)
+        qt1?.quoteRel.setBackgroundResource(bg.get(position))
+        qt1?.quoteText.setTextColor(myContext.resources.getColor(fontColor.get(position)))
+        qt1?.quoteText.rotation = rotationAngle.get(position)
+        if (quotes.get(position).length < 60)
+            qt1?.quoteText.textSize = 30f / (quotes.get(position).length / 40f)
+        else
+            qt1?.quoteText.textSize = 20f
+    }
+
+    private fun configureQuoteViewHolder2(qt2: QuoteViewHolder2, position: Int) {
+        qt2?.quoteText?.text = quotes.get(position).toString()
+        var typeFace: Typeface? = ResourcesCompat.getFont(myContext, font.get(position))
+        qt2?.quoteText.setTypeface(typeFace, Typeface.ITALIC)
+        qt2?.quoteRel.setBackgroundResource(bg.get(position))
+        qt2?.quoteText.setTextColor(myContext.resources.getColor(fontColor.get(position)))
+        qt2?.quoteText.rotation = rotationAngle.get(position)
+        if (quotes.get(position).length < 60)
+            qt2?.quoteText.textSize = 30f / (quotes.get(position).length / 40f)
+        else
+            qt2?.quoteText.textSize = 20f
+    }
+
     interface OnItemListener {
         fun onItemClick(position: Int)
     }
@@ -297,10 +409,4 @@ class MessageAdapter(messages: ArrayList<String>,
         this.mClickListener = mClickListener
     }
 
-    init {
-        this.messages = messages
-        this.sender = sender
-        this.sentTime = sentTime
-        this.showdate = showdate
-    }
 }

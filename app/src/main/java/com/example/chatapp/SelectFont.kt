@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class SelectFont : AppCompatActivity(),FontAdapter.OnItemListener
-{
+class SelectFont : AppCompatActivity(), FontAdapter.OnItemListener {
 
     lateinit var font: ArrayList<Int>
     lateinit var fontName: ArrayList<String>
@@ -17,37 +16,34 @@ class SelectFont : AppCompatActivity(),FontAdapter.OnItemListener
     lateinit var fontAdapter: FontAdapter
     lateinit var myIntent: Intent
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_font)
 
-        fontList=findViewById(R.id.fontList) as RecyclerView
+        fontList = findViewById(R.id.fontList) as RecyclerView
 
-        font=ArrayList<Int>()
-        fontName= ArrayList<String>()
-        initializeFonts(font,fontName)
+        font = ArrayList<Int>()
+        fontName = ArrayList<String>()
+        initializeFonts(font, fontName)
 
-        fontLayoutManager= GridLayoutManager(this,1)
-        fontList.layoutManager=fontLayoutManager
+        fontLayoutManager = GridLayoutManager(this, 1)
+        fontList.layoutManager = fontLayoutManager
         fontList.setHasFixedSize(true)
-        fontAdapter= FontAdapter(font,fontName)
-        fontList.adapter=fontAdapter
-        fontAdapter.mClickListener=this
+        fontAdapter = FontAdapter(font, fontName)
+        fontList.adapter = fontAdapter
+        fontAdapter.mClickListener = this
 
     }
 
-    override fun onItemClick(pos: Int)
-    {
-        val selectedFont=font.get(pos)
-        myIntent=Intent(applicationContext,MainActivity::class.java)
-        myIntent.putExtra("selectedFont",selectedFont)
-        setResult(Activity.RESULT_OK,myIntent)
+    override fun onItemClick(pos: Int) {
+        val selectedFont = font.get(pos)
+        myIntent = Intent(applicationContext, MainActivity::class.java)
+        myIntent.putExtra("selectedFont", selectedFont)
+        setResult(Activity.RESULT_OK, myIntent)
         finish()
     }
 
-    private fun initializeFonts(font: ArrayList<Int>, fontName: ArrayList<String>)
-    {
+    private fun initializeFonts(font: ArrayList<Int>, fontName: ArrayList<String>) {
         font.add(R.font.mr_dafoe_regular)
         font.add(R.font.josefin_sans_regular)
         font.add(R.font.montserrat_regular)

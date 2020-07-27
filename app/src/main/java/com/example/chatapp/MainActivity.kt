@@ -19,8 +19,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chatapp.EmojiAdapter.OnEmojiListener
-import com.example.chatapp.MainActivity
-import com.example.chatapp.MainActivity.Companion.setting
 import com.example.chatapp.MessageAdapter.OnItemListener
 import com.wang.avi.AVLoadingIndicatorView
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -37,14 +35,17 @@ class MainActivity : AppCompatActivity(),
     private var emojiPane: RecyclerView? = null
     private var msgAdapter: MessageAdapter? = null
     private var emojiAdapter: EmojiAdapter? = null
+    private var qtAdapter: MessageAdapter? = null
     private var msgLayoutManager: RecyclerView.LayoutManager? = null
     private var emojiLayoutManager: RecyclerView.LayoutManager? = null
+    private var quoteLayoutManager: RecyclerView.LayoutManager? = null
     var firstType: AVLoadingIndicatorView? = null
     var secondType: AVLoadingIndicatorView? = null
     var msg: EditText? = null
     var menuBar: RelativeLayout? = null
     var background: RelativeLayout? = null
     var emojiRel: RelativeLayout? = null
+    var quoteBtn: ImageButton? = null
     var d = 0f
     var SCREEN_WIDTH = 0f
     var SCREEN_HEIGHT = 0f
@@ -58,6 +59,16 @@ class MainActivity : AppCompatActivity(),
     var datePosition: ArrayList<Int>? = null
     lateinit var msgFont: ArrayList<Int>
     var menuBarParams: RelativeLayout.LayoutParams? = null
+
+    lateinit var msgView: RecyclerView
+    lateinit var quotes: ArrayList<String>
+    lateinit var font: ArrayList<Int>
+    lateinit var bg: ArrayList<Int>
+    lateinit var fontColor: ArrayList<Int>
+    lateinit var rotationAngle: ArrayList<Float>
+
+    val QUOTE_PICKER_ID = 12;
+    var i = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +85,12 @@ class MainActivity : AppCompatActivity(),
         showdate = ArrayList()
         datePosition = ArrayList()
         emojiName = ArrayList()
-        msgFont= ArrayList<Int>()
+        msgFont = ArrayList<Int>()
+        quotes = ArrayList<String>()
+        font = ArrayList<Int>()
+        bg = ArrayList<Int>()
+        fontColor = ArrayList<Int>()
+        rotationAngle = ArrayList<Float>()
 
         msg = findViewById<View>(R.id.msg) as EditText
         sendBtn = findViewById<View>(R.id.sendBtn) as ImageButton
@@ -92,7 +108,17 @@ class MainActivity : AppCompatActivity(),
         item4 = findViewById<View>(R.id.item4) as ImageButton
         item5 = findViewById<View>(R.id.item5) as ImageButton
         emojiRel = findViewById<View>(R.id.emojiRel) as RelativeLayout
-        setting=findViewById(R.id.setting) as ImageButton
+        setting = findViewById(R.id.setting) as ImageButton
+        msgView = findViewById(R.id.recyclerMsg) as RecyclerView
+        quoteBtn = findViewById(R.id.quoteBtn) as ImageButton
+
+        quoteLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        msgView.layoutManager = quoteLayoutManager
+        msgView.setHasFixedSize(true)
+        qtAdapter = MessageAdapter(null, sender!!, null, null, null, quotes, font, bg, fontColor, rotationAngle)
+        msgView.adapter = qtAdapter
+
+        quoteBtn!!.setOnClickListener(this)
 
         initImages(this)
 
@@ -102,7 +128,8 @@ class MainActivity : AppCompatActivity(),
         menuBar!!.visibility = View.GONE
         emojiRel!!.visibility = View.GONE
 
-        msgAdapter = MessageAdapter(messages!!, sender!!, sentTime!!, showdate!!, msgFont)
+        msgAdapter = MessageAdapter(messages, sender, sentTime, showdate, msgFont,
+                quotes, font, bg, fontColor, rotationAngle)
         msgAdapter!!.setListener(this)
         msgLayoutManager = LinearLayoutManager(this)
         recyclerMsg!!.layoutManager = msgLayoutManager
@@ -161,7 +188,15 @@ class MainActivity : AppCompatActivity(),
                 sentTime!!.add(time)
                 msgFont.add(defaultFont)
                 adjustDates()
+
+                quotes.add("")
+                font.add(-1)
+                bg.add(-1)
+                fontColor.add(-1)
+                rotationAngle.add(-1f)
+
                 msgLayoutManager!!.scrollToPosition(messages!!.size - 1)
+                msgAdapter!!.notifyItemInserted(messages!!.size - 1)
                 msg!!.setText("")
                 recyclerMsg!!.requestFocus()
                 i = if (i == 0) 1 else 0
@@ -214,14 +249,15 @@ class MainActivity : AppCompatActivity(),
         } else if (v == item3) {
         } else if (v == item4) {
         } else if (v == item5) {
-        }
-        else if(v== setting)
-        {
-            PopupMenu(this,v).apply {
+        } else if (v == setting) {
+            PopupMenu(this, v).apply {
                 setOnMenuItemClickListener(this@MainActivity)
                 inflate(R.menu.options_menu)
                 show()
             }
+        } else if (v == quoteBtn) {
+            val intent = Intent(applicationContext, SelectQuote::class.java)
+            startActivityForResult(intent, QUOTE_PICKER_ID)
         }
     }
 
@@ -273,18 +309,50 @@ class MainActivity : AppCompatActivity(),
                 val imageUri = data!!.data
                 messages!!.add(imageUri.toString())
                 if (i == 0) sender!!.add(2) else sender!!.add(3)
+                msgFont.add(defaultFont)
                 sentTime!!.add(time)
                 adjustDates()
+
+                quotes.add("")
+                font.add(-1)
+                bg.add(-1)
+                fontColor.add(-1)
+                rotationAngle.add(-1f)
+
                 msgLayoutManager!!.scrollToPosition(messages!!.size - 1)
+                msgAdapter!!.notifyItemInserted(messages!!.size - 1)
                 msg!!.setText("")
                 recyclerMsg!!.requestFocus()
                 i = if (i == 0) 1 else 0
                 msg!!.requestFocus()
-            }
-            else if(requestCode== FONT_REQUEST)
-            {
-                var intent:Intent=data as Intent
-                defaultFont=intent.getIntExtra("selectedFont",1)
+            } else if (requestCode == FONT_REQUEST) {
+                var intent: Intent = data as Intent
+                defaultFont = intent.getIntExtra("selectedFont", 1)
+            } else if (requestCode == QUOTE_PICKER_ID) {
+                var myIntent: Intent = data as Intent
+                var str: String = myIntent.getStringExtra("selectedQuote")!!
+                //Toast.makeText(applicationContext,str,Toast.LENGTH_SHORT).show()
+                if (i == 0) {
+                    sender?.add(8)
+                    i = 1
+                } else {
+                    sender?.add(9)
+                    i = 0
+                }
+                quotes.add(str)
+                font.add(myIntent.getIntExtra("font", 1))
+                bg.add(myIntent.getIntExtra("selectedBg", 1))
+                fontColor.add(myIntent.getIntExtra("selectedFontColor", 1))
+                rotationAngle.add(myIntent.getFloatExtra("selectedRotation", 1f))
+//                qtAdapter?.notifyItemInserted(quotes.size-1)
+//                quoteLayoutManager?.scrollToPosition(quotes.size-1)
+                messages!!.add("-1");
+                msgFont.add(defaultFont)
+                sentTime!!.add(time)
+                adjustDates()
+                msgAdapter?.notifyItemInserted(messages!!.size - 1)
+                msgLayoutManager!!.scrollToPosition(messages!!.size - 1)
+                recyclerMsg!!.requestFocus()
             }
         }
     }
@@ -334,8 +402,16 @@ class MainActivity : AppCompatActivity(),
             messages!!.add(Integer.toString(emojiName!![position]))
             0
         }
+        msgFont.add(defaultFont)
         sentTime!!.add(time)
         adjustDates()
+
+        quotes.add("")
+        font.add(-1)
+        bg.add(-1)
+        fontColor.add(-1)
+        rotationAngle.add(-1f)
+
         msgLayoutManager!!.scrollToPosition(messages!!.size - 1)
         recyclerMsg!!.requestFocus()
         emojiRel!!.visibility = View.GONE
@@ -383,7 +459,7 @@ class MainActivity : AppCompatActivity(),
         var visible = 0
         var emojiName: ArrayList<Int>? = null
         val FONT_REQUEST = 42
-        var defaultFont=R.font.roboto
+        var defaultFont = R.font.roboto
 
 
         fun setCurrentX(x: Int) {
@@ -433,10 +509,8 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
-        return when (item!!.itemId)
-        {
-            R.id.changeFont ->
-            {
+        return when (item!!.itemId) {
+            R.id.changeFont -> {
                 if (visible == 1) {
                     visible = 0
                     menuBar?.visibility = View.GONE

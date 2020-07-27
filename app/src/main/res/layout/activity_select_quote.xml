@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectQuote">
+
+    <LinearLayout
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="Step 1"
+            android:textAllCaps="true"
+            android:textSize="20dp"
+            android:background="@color/selectColor"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="Step 2"
+            android:textAllCaps="true"
+            android:textSize="20dp"
+            android:background="@color/selectColor"
+            android:gravity="center"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/quoteList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp"
+        android:scrollbars="none"
+        android:layout_above="@+id/tabScroll"
+        android:layout_below="@+id/heading" />
+
+    <HorizontalScrollView
+        android:id="@+id/tabScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/insTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Inspirational"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/white" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/deSelectColor" />
+
+            <TextView
+                android:id="@+id/loveTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Love"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/deSelectColor" />
+
+            <TextView
+                android:id="@+id/sadTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Sadness"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/deSelectColor" />
+
+            <TextView
+                android:id="@+id/motiTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Motivation"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/deSelectColor" />
+
+            <TextView
+                android:id="@+id/deterTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Determination"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/deSelectColor" />
+
+            <TextView
+                android:id="@+id/poetTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Poetry"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/deSelectColor" />
+
+            <TextView
+                android:id="@+id/teamTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Team"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/deSelectColor" />
+
+            <TextView
+                android:id="@+id/spoTv"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Sports"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@color/selectColor"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/btmBar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="BACK"
+            android:background="@color/selectColor"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="NEXT"
+            android:background="@color/selectColor"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</RelativeLayout>

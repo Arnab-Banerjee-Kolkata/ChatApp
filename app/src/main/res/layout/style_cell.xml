@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/sampleRel"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/quote_bg">
+
+        <TextView
+            android:id="@+id/styleSampleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Hello its..."
+            android:textColor="#04073c"
+            android:textSize="30sp"
+            android:fontFamily="cursive"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:rotation="-15" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

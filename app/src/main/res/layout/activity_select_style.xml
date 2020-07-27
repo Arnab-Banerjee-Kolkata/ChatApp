@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectStyle">
+
+    <LinearLayout
+        android:id="@+id/heading2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="Step 1"
+            android:textAllCaps="true"
+            android:textSize="20dp"
+            android:background="@color/selectColor"
+            android:gravity="center"
+            android:textColor="@android:color/black" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="Step 2"
+            android:textAllCaps="true"
+            android:textSize="20dp"
+            android:background="@color/selectColor"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/styleGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading2"
+        android:layout_above="@+id/btmBar" />
+
+    <LinearLayout
+        android:id="@+id/btmBar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="BACK"
+            android:background="@color/selectColor"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:text="NEXT"
+            android:background="@color/selectColor"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

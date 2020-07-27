@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:gravity="end"
     tools:context=".MainActivity">
-    <RelativeLayout
-        android:id="@+id/dateRel"
+
+    <RelativeLayout android:id="@+id/dateRel"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/darker_gray"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/dateText"
@@ -27,7 +26,7 @@
             android:textColor="@android:color/black"
             android:text="   Yesterday   "
             android:layout_margin="5dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -54,6 +53,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="Hello user this is me from universe."
                 android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
@@ -68,11 +68,11 @@
 
 
         <!--<RelativeLayout-->
-            <!--android:layout_width="15dp"-->
-            <!--android:layout_height="15dp"-->
-            <!--android:background="@android:color/white"-->
-            <!--android:layout_marginTop="9dp"-->
-            <!--android:layout_marginLeft="8dp"/>-->
+        <!--android:layout_width="15dp"-->
+        <!--android:layout_height="15dp"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:layout_marginTop="9dp"-->
+        <!--android:layout_marginLeft="8dp"/>-->
 
         <ImageView
             android:layout_width="20dp"
@@ -82,15 +82,15 @@
             android:padding="5dp"
             android:src="@drawable/left_quote"
             android:layout_marginTop="2dp"
-            android:layout_marginLeft="1dp"/>
+            android:layout_marginLeft="1dp" />
 
         <!--<RelativeLayout-->
-            <!--android:layout_width="10dp"-->
-            <!--android:layout_height="10dp"-->
-            <!--android:layout_gravity="bottom|end"-->
-            <!--android:background="@android:color/white"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:layout_marginRight="11dp"/>-->
+        <!--android:layout_width="10dp"-->
+        <!--android:layout_height="10dp"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_marginRight="11dp"/>-->
 
         <ImageView
             android:layout_width="20dp"
@@ -101,7 +101,7 @@
             android:padding="5dp"
             android:src="@drawable/right_quote"
             android:layout_marginRight="1dp"
-            android:layout_marginBottom="2dp"/>
+            android:layout_marginBottom="2dp" />
     </FrameLayout>
 
 </RelativeLayout>

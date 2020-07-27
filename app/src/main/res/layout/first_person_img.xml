@@ -7,17 +7,17 @@
     android:background="@color/white"
     android:gravity="end"
     tools:context=".MainActivity">
-    <RelativeLayout
-        android:id="@+id/dateRel"
+
+    <RelativeLayout android:id="@+id/dateRel"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/darker_gray"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/dateText"
@@ -27,7 +27,7 @@
             android:textColor="@android:color/black"
             android:text="   Yesterday   "
             android:layout_margin="5dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -45,7 +45,7 @@
             android:background="@drawable/rounded_background"
             android:orientation="vertical"
             android:layout_marginTop="7dp"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
 
         <FrameLayout
@@ -56,8 +56,7 @@
             android:orientation="vertical"
             android:layout_marginTop="11dp"
             android:padding="10dp"
-            android:elevation="5dp"/>
-
+            android:elevation="5dp" />
 
 
         <FrameLayout
@@ -71,7 +70,7 @@
             android:orientation="vertical"
             android:padding="10dp"
             android:elevation="10dp">
-            
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgMsg"
                 android:layout_width="250dp"
@@ -79,7 +78,7 @@
                 android:layout_height="290dp"
                 android:scaleType="centerCrop"
                 android:layout_gravity="top|center_horizontal"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp" />
 
             <TextView
                 android:id="@+id/text"
@@ -90,7 +89,8 @@
                 android:textColor="@android:color/black"
                 android:text="Hello user this is me from universe."
                 android:textSize="15sp"
-                android:layout_gravity="bottom"/>
+                android:layout_gravity="bottom" />
+
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
