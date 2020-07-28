@@ -8,12 +8,36 @@
         android:layout_height="wrap_content"
         android:padding="5dp">
 
+        <RelativeLayout android:id="@+id/qtDateRel"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/qtDateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:textColor="@android:color/black"
+                android:text="   Yesterday   "
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/quoteRel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/quote_bg">
+            android:layout_marginLeft="100dp"
+            android:background="@drawable/quote_bg"
+            android:layout_below="@+id/qtDateRel">
 
             <TextView
                 android:id="@+id/quoteText"
@@ -33,6 +57,18 @@
                 android:textColor="#040347"
                 android:layout_centerInParent="true" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/qtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/quoteRel"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="10:30 AM"
+            android:textSize="8sp"
+            android:textColor="@android:color/black" />
 
     </RelativeLayout>
 

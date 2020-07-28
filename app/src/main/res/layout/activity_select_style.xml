@@ -23,7 +23,7 @@
             android:textColor="@android:color/black"
             android:layout_marginEnd="1dp"
             android:layout_weight="1"
-            android:minWidth="500dp"/>
+            android:minWidth="500dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:textColor="@android:color/white"
             android:layout_weight="1"
             android:layout_marginStart="1dp"
-            android:minWidth="500dp"/>
+            android:minWidth="500dp" />
 
     </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:textColor="@android:color/white"
             android:layout_marginEnd="1dp"
             android:layout_weight="1"
-            android:minWidth="500dp"/>
+            android:minWidth="500dp" />
 
 
         <Button
@@ -75,7 +75,7 @@
             android:textColor="@android:color/white"
             android:layout_weight="1"
             android:layout_marginStart="1dp"
-            android:minWidth="500dp"/>
+            android:minWidth="500dp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -254,16 +254,16 @@ class MessageAdapter(messages: ArrayList<String>?,
     class QuoteViewHolder1(var view: View) : ViewHolder(view) {
         var quoteText: TextView
 
-        //var time: TextView
-        //var dateText: TextView
-        //var dateRel: RelativeLayout
+        var qtTime: TextView
+        var qtDateText: TextView
+        var qtDateRel: RelativeLayout
         var quoteRel: RelativeLayout
 
         init {
 //            textView = view.findViewById<View>(R.id.text) as TextView
-//            time = view.findViewById<View>(R.id.time) as TextView
-//            dateRel = view.findViewById<View>(R.id.dateRel) as RelativeLayout
-//            dateText = view.findViewById<View>(R.id.dateText) as TextView
+            qtTime = view.findViewById<View>(R.id.qtTime) as TextView
+            qtDateRel = view.findViewById<View>(R.id.qtDateRel) as RelativeLayout
+            qtDateText = view.findViewById<View>(R.id.qtDateText) as TextView
             quoteText = itemView.findViewById(R.id.quoteText) as TextView
             quoteRel = itemView.findViewById(R.id.quoteRel) as RelativeLayout
         }
@@ -272,16 +272,16 @@ class MessageAdapter(messages: ArrayList<String>?,
     class QuoteViewHolder2(var view: View) : ViewHolder(view) {
         var quoteText: TextView
 
-        //var time: TextView
-        //var dateText: TextView
-        //var dateRel: RelativeLayout
+        var qtTime: TextView
+        var qtDateText: TextView
+        var qtDateRel: RelativeLayout
         var quoteRel: RelativeLayout
 
         init {
 //            textView = view.findViewById<View>(R.id.text) as TextView
-//            time = view.findViewById<View>(R.id.time) as TextView
-//            dateRel = view.findViewById<View>(R.id.dateRel) as RelativeLayout
-//            dateText = view.findViewById<View>(R.id.dateText) as TextView
+            qtTime = view.findViewById<View>(R.id.qtTime) as TextView
+            qtDateRel = view.findViewById<View>(R.id.qtDateRel) as RelativeLayout
+            qtDateText = view.findViewById<View>(R.id.qtDateText) as TextView
             quoteText = itemView.findViewById(R.id.quoteText) as TextView
             quoteRel = itemView.findViewById(R.id.quoteRel) as RelativeLayout
         }
@@ -386,6 +386,13 @@ class MessageAdapter(messages: ArrayList<String>?,
             qt1?.quoteText.textSize = 30f / (quotes.get(position).length / 40f)
         else
             qt1?.quoteText.textSize = 20f
+
+        qt1.qtTime.text = sentTime[position]
+        qt1.qtDateRel.visibility = View.GONE
+        if (showdate[position] != "") {
+            qt1.qtDateRel.visibility = View.VISIBLE
+        }
+        qt1.qtDateText.text = "   " + showdate[position] + "   "
     }
 
     private fun configureQuoteViewHolder2(qt2: QuoteViewHolder2, position: Int) {
@@ -399,6 +406,13 @@ class MessageAdapter(messages: ArrayList<String>?,
             qt2?.quoteText.textSize = 30f / (quotes.get(position).length / 40f)
         else
             qt2?.quoteText.textSize = 20f
+
+        qt2.qtTime.text = sentTime[position]
+        qt2.qtDateRel.visibility = View.GONE
+        if (showdate[position] != "") {
+            qt2.qtDateRel.visibility = View.VISIBLE
+        }
+        qt2.qtDateText.text = "   " + showdate[position] + "   "
     }
 
     interface OnItemListener {
