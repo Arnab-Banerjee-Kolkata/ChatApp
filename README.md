@@ -57,3 +57,7 @@ Chat App front end design.
 
 </tr>
 </table>
+
+# APK Download Link
+
+https://github.com/Arnab-Banerjee-Kolkata/ChatApp/blob/master/app/release/app-release.apk
