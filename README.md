@@ -22,17 +22,17 @@ Chat App front end design.
 <br />
 </td>
 
-<td align="center" valign="center">
-<img src="https://github.com/Arnab-Banerjee-Kolkata/ChatApp/blob/master/ScreenShots/ss4.png" alt="description here" height="500" width="350" />
-<br />
-</td>
-
 </tr>
 
 <tr>
 
 <td align="center" valign="center">
-<img src="https://github.com/Arnab-Banerjee-Kolkata/ChatApp/blob/master/ScreenShots/ss5.png" alt="description here" height="500" width="350"/>
+<img src="https://github.com/Arnab-Banerjee-Kolkata/ChatApp/blob/master/ScreenShots/ss4.png" alt="description here" height="500" width="350"/>
+<br />
+</td>
+
+<td align="center" valign="center">
+<img src="https://github.com/Arnab-Banerjee-Kolkata/ChatApp/blob/master/ScreenShots/ss5.png" alt="description here" height="500" width="350" />
 <br />
 </td>
 
@@ -41,8 +41,12 @@ Chat App front end design.
 <br />
 </td>
 
+</tr>
+
+<tr>
+
 <td align="center" valign="center">
-<img src="https://github.com/Arnab-Banerjee-Kolkata/ChatApp/blob/master/ScreenShots/ss7.png" alt="description here" height="500" width="350" />
+<img src="https://github.com/Arnab-Banerjee-Kolkata/ChatApp/blob/master/ScreenShots/ss7.png" alt="description here" height="500" width="350"/>
 <br />
 </td>
 
