@@ -419,8 +419,4 @@ class MessageAdapter(messages: ArrayList<String>?,
         fun onItemClick(position: Int)
     }
 
-    fun setListener(mClickListener: OnItemListener?) {
-        this.mClickListener = mClickListener
-    }
-
 }

@@ -159,7 +159,7 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/plus" />
+            app:srcCompat="@drawable/right_thumbs_up" />
 
     </RelativeLayout>
 
@@ -181,93 +181,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@android:color/white" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/menuBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/menuItemHeight"
-        android:layout_above="@+id/emojiRel"
-        android:layout_marginBottom="-280dp"
-        android:background="@android:color/transparent">
-
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/item1"
-                    android:layout_width="@dimen/menuItemWidth"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/right_thumbs_up"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:padding="10dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/circle" />
-
-                <ImageButton
-                    android:id="@+id/item2"
-                    android:layout_width="@dimen/menuItemWidth"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/font_logo"
-                    android:padding="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/circle" />
-
-                <ImageButton
-                    android:id="@+id/item3"
-                    android:layout_width="@dimen/menuItemWidth"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/placeholder"
-                    android:padding="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/circle" />
-
-                <ImageButton
-                    android:id="@+id/item4"
-                    android:layout_width="@dimen/menuItemWidth"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/placeholder"
-                    android:padding="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/circle" />
-
-                <ImageButton
-                    android:id="@+id/item5"
-                    android:layout_width="@dimen/menuItemWidth"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/placeholder"
-                    android:padding="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/circle" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
 
     </RelativeLayout>
 

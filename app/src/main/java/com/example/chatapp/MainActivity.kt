@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chatapp.EmojiAdapter.OnEmojiListener
-import com.example.chatapp.MessageAdapter.OnItemListener
 import com.wang.avi.AVLoadingIndicatorView
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.text.SimpleDateFormat
@@ -28,7 +27,6 @@ import java.util.*
 class MainActivity : AppCompatActivity(),
         View.OnClickListener,
         OnFocusChangeListener,
-        OnItemListener,
         OnEmojiListener,
         PopupMenu.OnMenuItemClickListener {
     private var recyclerMsg: RecyclerView? = null
@@ -42,7 +40,6 @@ class MainActivity : AppCompatActivity(),
     var firstType: AVLoadingIndicatorView? = null
     var secondType: AVLoadingIndicatorView? = null
     var msg: EditText? = null
-    var menuBar: RelativeLayout? = null
     var background: RelativeLayout? = null
     var emojiRel: RelativeLayout? = null
     var quoteBtn: ImageButton? = null
@@ -99,14 +96,8 @@ class MainActivity : AppCompatActivity(),
         firstType = findViewById<View>(R.id.firstType) as AVLoadingIndicatorView
         secondType = findViewById<View>(R.id.secondType) as AVLoadingIndicatorView
         attachmentBtn = findViewById<View>(R.id.attachmentBtn) as ImageButton
-        menuBar = findViewById<View>(R.id.menuBar) as RelativeLayout
         menuBtn = findViewById<View>(R.id.menuBtn) as ImageButton
         background = findViewById<View>(R.id.background) as RelativeLayout
-        item1 = findViewById<View>(R.id.item1) as ImageButton
-        item2 = findViewById<View>(R.id.item2) as ImageButton
-        item3 = findViewById<View>(R.id.item3) as ImageButton
-        item4 = findViewById<View>(R.id.item4) as ImageButton
-        item5 = findViewById<View>(R.id.item5) as ImageButton
         emojiRel = findViewById<View>(R.id.emojiRel) as RelativeLayout
         setting = findViewById(R.id.setting) as ImageButton
         msgView = findViewById(R.id.recyclerMsg) as RecyclerView
@@ -125,12 +116,10 @@ class MainActivity : AppCompatActivity(),
         emojiName = EmojiInitializer.initialize()
         firstType!!.visibility = View.GONE
         secondType!!.visibility = View.GONE
-        menuBar!!.visibility = View.GONE
         emojiRel!!.visibility = View.GONE
 
         msgAdapter = MessageAdapter(messages, sender, sentTime, showdate, msgFont,
                 quotes, font, bg, fontColor, rotationAngle)
-        msgAdapter!!.setListener(this)
         msgLayoutManager = LinearLayoutManager(this)
         recyclerMsg!!.layoutManager = msgLayoutManager
         recyclerMsg!!.setHasFixedSize(true)
@@ -151,17 +140,7 @@ class MainActivity : AppCompatActivity(),
         menuBtn!!.setOnClickListener(this)
         background!!.setOnClickListener(this)
         recyclerMsg!!.setOnClickListener(this)
-        item1!!.setOnClickListener(this)
-        item2!!.setOnClickListener(this)
-        item3!!.setOnClickListener(this)
-        item4!!.setOnClickListener(this)
-        item5!!.setOnClickListener(this)
         setting.setOnClickListener(this)
-
-        menuBarParams = menuBar!!.layoutParams as RelativeLayout.LayoutParams
-        menuBarParams!!.addRule(RelativeLayout.ABOVE, R.id.baseBar)
-        menuBarParams!!.setMargins(0, 0, 0, 0)
-        menuBar!!.layoutParams = menuBarParams
 
 
         KeyboardVisibilityEvent.setEventListener(
@@ -176,11 +155,6 @@ class MainActivity : AppCompatActivity(),
 
     override fun onClick(v: View) {
         if (v == sendBtn) {
-            if (visible == 1) {
-                visible = 0
-                menuBar!!.visibility = View.GONE
-                loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-            }
             val message = msg!!.text.toString().trim { it <= ' ' }
             if (message.length > 0) {
                 messages!!.add(message)
@@ -203,11 +177,6 @@ class MainActivity : AppCompatActivity(),
                 msg!!.requestFocus()
             }
         } else if (v == attachmentBtn) {
-            if (visible == 1) {
-                visible = 0
-                menuBar!!.visibility = View.GONE
-                loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-            }
             //Accessing the image gallery
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             val pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
@@ -216,39 +185,11 @@ class MainActivity : AppCompatActivity(),
             photoPickerIntent.setDataAndType(data, "image/*")
             startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST)
         } else if (v == menuBtn) {
-            if (visible == 0) {
-                visible = 1
-                menuBar!!.visibility = View.VISIBLE
-                loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.cross)
-            } else {
-                visible = 0
-                menuBar!!.visibility = View.GONE
-                loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-            }
-        } else if (v == background) {
-            if (visible == 1) {
-                visible = 0
-                menuBar!!.visibility = View.GONE
-                loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-            }
-        } else if (v == recyclerMsg) {
-            if (visible == 1) {
-                visible = 0
-                menuBar!!.visibility = View.GONE
-                loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-            }
-        } else if (v == item1) {
             hideKeyboard(this@MainActivity)
             emojiRel!!.visibility = View.VISIBLE
             isEmojiPaneVisible = true
-            menuBarParams = menuBar!!.layoutParams as RelativeLayout.LayoutParams
-            menuBarParams!!.addRule(RelativeLayout.ABOVE, R.id.emojiRel)
-            menuBarParams!!.setMargins(0, 0, 0, -1 * this.resources.getDimension(R.dimen.emojiRelMarginTop).toInt())
-            menuBar!!.layoutParams = menuBarParams
-        } else if (v == item2) {
-        } else if (v == item3) {
-        } else if (v == item4) {
-        } else if (v == item5) {
+        } else if (v == background) {
+        } else if (v == recyclerMsg) {
         } else if (v == setting) {
             PopupMenu(this, v).apply {
                 setOnMenuItemClickListener(this@MainActivity)
@@ -276,7 +217,6 @@ class MainActivity : AppCompatActivity(),
             return time
         }
 
-    //Toast.makeText(MainActivity.this,""+formattedDate,Toast.LENGTH_SHORT).show();
     val date: String
         get() {
             val date = Calendar.getInstance().time
@@ -357,15 +297,6 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onItemClick(position: Int) {
-        //Toast.makeText(this,"clicked",Toast.LENGTH_SHORT).show();
-        if (visible == 1) {
-            visible = 0
-            menuBar!!.visibility = View.GONE
-            loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-        }
-    }
-
     fun adjustDates() {
         sentDate!!.add(date)
         if (sentDate!!.size == 1) {
@@ -416,27 +347,13 @@ class MainActivity : AppCompatActivity(),
         recyclerMsg!!.requestFocus()
         emojiRel!!.visibility = View.GONE
         isEmojiPaneVisible = false
-        menuBar!!.visibility = View.GONE
-        visible = 0
-        loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-        menuBarParams = menuBar!!.layoutParams as RelativeLayout.LayoutParams
-        menuBarParams!!.addRule(RelativeLayout.ABOVE, R.id.baseBar)
-        menuBarParams!!.setMargins(0, 0, 0, 0)
-        menuBar!!.layoutParams = menuBarParams
+        loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.right_thumbs_up)
     }
 
     override fun onBackPressed() {
         if (isEmojiPaneVisible) {
             emojiRel!!.visibility = View.GONE
             isEmojiPaneVisible = false
-            menuBarParams = menuBar!!.layoutParams as RelativeLayout.LayoutParams
-            menuBarParams!!.addRule(RelativeLayout.ABOVE, R.id.baseBar)
-            menuBarParams!!.setMargins(0, 0, 0, 0)
-            menuBar!!.layoutParams = menuBarParams
-        } else if (visible == 1) {
-            menuBar!!.visibility = View.GONE
-            loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-            visible = 0
         } else super.onBackPressed()
     }
 
@@ -445,48 +362,15 @@ class MainActivity : AppCompatActivity(),
         var sendBtn: ImageButton? = null
         var attachmentBtn: ImageButton? = null
         var menuBtn: ImageButton? = null
-        var item1: ImageButton? = null
-        var item2: ImageButton? = null
-        var item3: ImageButton? = null
-        var item4: ImageButton? = null
-        var item5: ImageButton? = null
         lateinit var setting: ImageButton
-        private var currentX = 0
-        private var currentY = 0
-        private var startX = 0
-        private var startY = 0
-        var i = 0
-        var visible = 0
         var emojiName: ArrayList<Int>? = null
         val FONT_REQUEST = 42
         var defaultFont = R.font.roboto
 
-
-        fun setCurrentX(x: Int) {
-            currentX = x
-        }
-
-        fun setCurrentY(y: Int) {
-            currentY = y
-        }
-
-        fun setStartX(x: Int) {
-            startX = x
-        }
-
-        fun setStartY(y: Int) {
-            startY = y
-        }
-
         fun initImages(context: Context?) {
-            loadIconOrMenuImg(context, menuBtn, R.drawable.plus)
+            loadIconOrMenuImg(context, menuBtn, R.drawable.right_thumbs_up)
             loadIconOrMenuImg(context, sendBtn, R.drawable.send_btn)
             loadIconOrMenuImg(context, attachmentBtn, R.drawable.attachment)
-            loadIconOrMenuImg(context, item1, R.drawable.right_thumbs_up)
-            loadIconOrMenuImg(context, item2, R.drawable.font_logo)
-            loadIconOrMenuImg(context, item3, R.drawable.placeholder)
-            loadIconOrMenuImg(context, item4, R.drawable.placeholder)
-            loadIconOrMenuImg(context, item5, R.drawable.placeholder)
         }
 
         fun loadIconOrMenuImg(context: Context?, imgBtn: ImageButton?, image: Int) {
@@ -511,11 +395,6 @@ class MainActivity : AppCompatActivity(),
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item!!.itemId) {
             R.id.changeFont -> {
-                if (visible == 1) {
-                    visible = 0
-                    menuBar?.visibility = View.GONE
-                    loadIconOrMenuImg(this@MainActivity, menuBtn, R.drawable.plus)
-                }
                 val intent: Intent = Intent(applicationContext, SelectFont::class.java)
                 startActivityForResult(intent, FONT_REQUEST)
                 true
