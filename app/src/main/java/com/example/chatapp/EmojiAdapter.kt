@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import java.util.*
 
+
 class EmojiAdapter(var emojiName: ArrayList<Int>) : RecyclerView.Adapter<ViewHolder>() {
     var context: Context? = null
     private var mClickListener: OnEmojiListener? = null
